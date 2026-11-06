@@ -1,0 +1,6 @@
+from app.database.repositories.user_repository import user_repo
+from app.database.repositories.content_repository import content_repo
+from app.database.repositories.question_repository import question_repo
+from app.database.repositories.session_repository import session_repo
+from app.database.repositories.gamification_repository import gamification_repo
+from app.database.repositories.analytics_repository import analytics_repo

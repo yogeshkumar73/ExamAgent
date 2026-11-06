@@ -1,0 +1,6 @@
+{
+  "name": "SkillArena AI",
+  "description": "AI-powered technical and behavioral interview preparation, adaptive Bayesian mastery analytics, and customizable real-time performance dashboard grounded in your engineering blueprint.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

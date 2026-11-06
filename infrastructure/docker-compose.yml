@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: skillarena_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - MONGODB_URI=mongodb://root:skillarena_secret@mongodb:27017/skillarena?authSource=admin
+      - REDIS_URL=redis://:redis_secret@redis:6379/0
+      - JWT_SECRET=skillarena_production_jwt_secret_key_change_in_prod
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    depends_on:
+      - mongodb
+      - redis
+    restart: always
+
+  mongodb:
+    image: mongo:7.0
+    container_name: skillarena_mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=skillarena_secret
+      - MONGO_INITDB_DATABASE=skillarena
+    volumes:
+      - mongodb_data:/data/db
+    restart: always
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: skillarena_redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf:ro
+      - redis_data:/data
+    restart: always
+
+volumes:
+  mongodb_data:
+  redis_data:
